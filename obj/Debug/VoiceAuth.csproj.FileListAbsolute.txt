@@ -1,0 +1,10 @@
+c:\users\stanislav\documents\visual studio 2013\Projects\AudioAuth\VoiceAuth\obj\Debug\VoiceAuth.csprojResolveAssemblyReference.cache
+c:\users\stanislav\documents\visual studio 2013\Projects\AudioAuth\VoiceAuth\bin\Debug\VoiceAuth.dll
+c:\users\stanislav\documents\visual studio 2013\Projects\AudioAuth\VoiceAuth\bin\Debug\VoiceAuth.pdb
+c:\users\stanislav\documents\visual studio 2013\Projects\AudioAuth\VoiceAuth\obj\Debug\VoiceAuth.dll
+c:\users\stanislav\documents\visual studio 2013\Projects\AudioAuth\VoiceAuth\obj\Debug\VoiceAuth.pdb
+C:\Users\Stanislav\documents\visual studio 2013\Projects\AudioAuth\VoiceAuth\bin\Debug\NAudio.dll
+C:\Users\Stanislav\documents\visual studio 2013\Projects\AudioAuth\VoiceAuth\obj\Debug\VoiceAuth.fmAuthForm.resources
+C:\Users\Stanislav\documents\visual studio 2013\Projects\AudioAuth\VoiceAuth\obj\Debug\VoiceAuth.csproj.GenerateResource.Cache
+C:\Users\Stanislav\documents\visual studio 2013\Projects\AudioAuth\VoiceAuth\obj\Debug\VoiceAuth.fmAdminSettings.resources
+C:\Users\Stanislav\documents\visual studio 2013\Projects\AudioAuth\VoiceAuth\obj\Debug\VoiceAuth.fmRecordForm.resources
