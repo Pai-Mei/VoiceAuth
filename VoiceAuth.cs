@@ -17,29 +17,51 @@ namespace VoiceAuth
 {
 	public static class VoiceAuth
     {
-		static public Authentification AuthClient;
-		
+		static internal AudioSettings m_AudioSettings;
+
+		static internal Authentification AuthClient;
+
+		static internal AudioSettings AudioSettings
+		{
+			get 
+			{
+				if (m_AudioSettings == null)
+					m_AudioSettings = new AudioSettings();
+				return m_AudioSettings;
+			}
+		}
+
 		static public Boolean Login()
 		{
+			
 			try {
 				AuthClient = new Authentification();
 				var fmAuth = new fmAuthForm();
-				return fmAuth.ShowDialog() == System.Windows.Forms.DialogResult.OK;				 
+				var result = fmAuth.ShowDialog();
+				if (result == DialogResult.Retry)
+				{
+					fmAdminSettings adminForm = new fmAdminSettings();
+					adminForm.ShowDialog();
+					return true;
+				}
+				return result == DialogResult.OK;
 			} 
 			catch(Exception e)
 			{
 				MessageBox.Show(e.Message, "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				return false;
-			}
+			} 
 		}
 	}
 
-	public class AudioSettings
+	internal class AudioSettings
 	{
+		public int[] SampleRates = new int[] { 8000, 16000, 21000, 44100, 48000, 96000, 128000, 320000 };
+
 		public int BufferMilliseconds { get; set; }
 		public int DeviceNumber { get; set; }
 		public WaveFormat WaveFormat { get; set; }
-
+		public Double Duration { get; set; }
 		public AudioSettings()
 		{
 			BufferMilliseconds = 100;
@@ -54,9 +76,9 @@ namespace VoiceAuth
 		private WaveIn m_Input;
 		private AudioSettings m_Settings;
 
-		public AudioRecorder ()
+		public AudioRecorder (AudioSettings settings)
 		{
-			m_Settings = new AudioSettings();
+			m_Settings = settings;
 			m_buffer = new byte[0];
 		}
 
@@ -97,40 +119,64 @@ namespace VoiceAuth
  			m_buffer.Concat(e.Buffer);
 			Visualization(e.Buffer);
 		}
-
-		
-
-		
 	}
 
-	public class Authentification : IDisposable
+	internal class Authentification : IDisposable
 	{
-		private RegistryKey key;
+		private const string filePath = "\\auth.xml";
+
+		public class LoginData
+		{
+			public String Login { get; set; }
+			public String Hash { get; set; }
+
+			public LoginData()
+			{
+
+			}
+
+			public LoginData(string login, string hash)
+			{
+				this.Login = login;
+				this.Hash = hash;
+			}
+		}
+
+		private Dictionary<string, string> data;
 
 		public Authentification ()
 		{
-			WindowsIdentity identity = WindowsIdentity.GetCurrent();
-			RegistryAccessRule accessRule = new RegistryAccessRule(	identity.User, 
-																	RegistryRights.FullControl, 
-																	AccessControlType.Allow);
-			RegistrySecurity regSecurity = new RegistrySecurity();
-			regSecurity.SetAccessRule(accessRule);
+			Load();
+		}
 
-			key = Registry.CurrentUser.OpenSubKey("Software");
-			key.SetAccessControl(regSecurity);
-			key.CreateSubKey("Authentificator");
-			if(key.GetValue("admin", null) == null)
+		private void Load()
+		{
+			var listdata = Xml.Xml.Load(Environment.CurrentDirectory + filePath, typeof(List<LoginData>)) as List<LoginData>;
+			if (listdata == null || listdata.Count == 0)
 			{
+				listdata = new List<LoginData>();
 				string hash = "";
 				using (MD5 md5Hash = MD5.Create())
 					hash = GetMd5Hash(md5Hash, "admin");
-				key.SetValue("admin", hash);
+				listdata.Add(new LoginData("admin", hash));
 			}
+			data = new Dictionary<string, string>(listdata.Count);
+			foreach (var item in listdata)
+				data.Add(item.Login, item.Hash);
+			Save();
 		}
-		
+
+		public void Save()
+		{
+			var listData = new List<LoginData>();
+			foreach (var item in data)
+				listData.Add(new LoginData(item.Key, item.Value));
+			Xml.Xml.Save(Environment.CurrentDirectory + filePath, listData, typeof(List<LoginData>));
+		}
+
 		public List<string> GetUsers()
 		{
-			return key.GetValueNames().ToList();
+			return data.Keys.ToList<string>();
 		}
 
 		public void AddUser(string login, string password)
@@ -138,20 +184,27 @@ namespace VoiceAuth
 			string hash = "";
 			using (MD5 md5Hash = MD5.Create())
 				hash = GetMd5Hash(md5Hash, password);
-			key.SetValue(login, hash, RegistryValueKind.String);
+			if (!data.ContainsKey(login))
+				data.Add(login, hash);
+			else
+				data[login] = hash;
+			Save();
 		}
 
 		public void RemoveUser(string login)
 		{
-			key.DeleteValue(login);
+			data.Remove(login);
+			Save();
 		}
 
 		public bool ValidateUser(string login, string password)
 		{
+			if (!data.ContainsKey(login))
+				return false;
 			string hash = "";
 			using (MD5 md5Hash = MD5.Create())
 				hash = GetMd5Hash(md5Hash, password);
-			var trueHash = key.GetValue(login, "");
+			var trueHash = data[login];
 			return (trueHash == hash);			
 		}
 
@@ -178,7 +231,12 @@ namespace VoiceAuth
 
 		public void Dispose()
 		{
-			key.Dispose();
+			Save();
 		}
+	}
+
+	internal class VoiceAnalys
+	{
+
 	}
 }

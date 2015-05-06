@@ -18,7 +18,7 @@ namespace VoiceAuth
 
 		public fmRecordForm()
 		{
-			m_Rec = new AudioRecorder();
+			m_Rec = new AudioRecorder(VoiceAuth.AudioSettings);
 			InitializeComponent();
 			timer1.Interval = 100;
 		}

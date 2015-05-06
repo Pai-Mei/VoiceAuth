@@ -27,7 +27,10 @@ namespace VoiceAuth
 		{
 			if (VoiceAuth.AuthClient.ValidateUser(comboBoxLogin.Text, maskedTextBoxPassword.Text))
 			{
-				this.DialogResult = System.Windows.Forms.DialogResult.OK;
+				if (comboBoxLogin.Text == "admin")
+					this.DialogResult = System.Windows.Forms.DialogResult.Retry;
+				else
+					this.DialogResult = System.Windows.Forms.DialogResult.OK;
 			}
 			else
 			{
