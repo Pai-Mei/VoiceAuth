@@ -20,7 +20,7 @@ namespace VoiceAuth
 		private void btnVoice_Click(object sender, EventArgs e)
 		{
 			var dialog = new fmRecordForm();
-			dialog.ShowDialog();
+			this.DialogResult = dialog.ShowDialog();
 		}
 
 		private void btnOK_Click(object sender, EventArgs e)

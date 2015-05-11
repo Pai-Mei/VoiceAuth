@@ -34,6 +34,7 @@ namespace VoiceAuth
 			else
 			{
 				progressBar1.Value = (int)m_EllapsedTime.TotalMilliseconds;
+				pictureBox1.Image = m_Rec.Visulization(pictureBox1.Size);
 			}
 		}
 
@@ -41,7 +42,7 @@ namespace VoiceAuth
 		{
 			m_Rec.StartRecord();
 			m_EllapsedTime = new TimeSpan();
-			m_RecTime = new TimeSpan(0, 0, 10);
+			m_RecTime = new TimeSpan(0, 0, (int)VoiceAuth.AudioSettings.Duration);
 			progressBar1.Maximum = (int)m_RecTime.TotalMilliseconds;
 			timer1.Start();
 			button1.Enabled = false;

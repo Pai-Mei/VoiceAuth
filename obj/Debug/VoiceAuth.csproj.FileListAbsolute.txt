@@ -19,3 +19,8 @@ C:\Users\Станислав\Documents\GitHub\VoiceAuth\obj\Debug\VoiceAuth.cspro
 C:\Users\Станислав\Documents\GitHub\VoiceAuth\obj\Debug\VoiceAuth.dll
 C:\Users\Станислав\Documents\GitHub\VoiceAuth\obj\Debug\VoiceAuth.pdb
 C:\Users\Станислав\Documents\GitHub\VoiceAuth\obj\Debug\VoiceAuth.fmUserDataDialog.resources
+C:\Users\Stanislav\Documents\Visual Studio 2013\Projects\AudioAuth\VoiceAuth\obj\Debug\VoiceAuth.fmUserDataDialog.resources
+C:\Users\Stanislav\Documents\Visual Studio 2013\Projects\AudioAuth\VoiceAuth\bin\Debug\AForge.Controls.dll
+C:\Users\Stanislav\Documents\Visual Studio 2013\Projects\AudioAuth\VoiceAuth\bin\Debug\AForge.dll
+C:\Users\Stanislav\Documents\Visual Studio 2013\Projects\AudioAuth\VoiceAuth\bin\Debug\AForge.Math.dll
+C:\Users\Stanislav\Documents\Visual Studio 2013\Projects\AudioAuth\VoiceAuth\bin\Debug\AForge.Neuro.dll

@@ -12,6 +12,8 @@ using NAudio.Wave;
 using System.Windows.Forms;
 using System.Security.AccessControl;
 using System.Security.Principal;
+using AForge;
+using System.Drawing;
 
 namespace VoiceAuth
 {
@@ -56,7 +58,7 @@ namespace VoiceAuth
 
 	internal class AudioSettings
 	{
-		public int[] SampleRates = new int[] { 8000, 16000, 21000, 44100, 48000, 96000, 128000, 320000 };
+		private static readonly string SettingsFilePath = Environment.CurrentDirectory + "\\AudioSettings.xml";
 
 		public int BufferMilliseconds { get; set; }
 		public int DeviceNumber { get; set; }
@@ -66,15 +68,28 @@ namespace VoiceAuth
 		{
 			BufferMilliseconds = 100;
 			DeviceNumber = 0;
-			WaveFormat = new WaveFormat(16000, 1);
+			WaveFormat = new WaveFormat(16000, 16, 1);
+			Duration = 10;
+		}
+
+		public static AudioSettings Load()
+		{
+			return Xml.Xml.Load(SettingsFilePath, typeof(AudioSettings)) as AudioSettings;
+		}
+
+		public void Save()
+		{
+			Xml.Xml.Save(SettingsFilePath, this, typeof(AudioSettings));
 		}
 	}
 
 	internal class AudioRecorder
 	{
 		private byte[] m_buffer;
+		private byte[] tmpBuffer;
 		private WaveIn m_Input;
 		private AudioSettings m_Settings;
+		private VoiceAnalys m_Analisator;
 
 		public AudioRecorder (AudioSettings settings)
 		{
@@ -104,20 +119,101 @@ namespace VoiceAuth
 			m_Input.StopRecording();
 		}
 
-		private void Visualization(byte[] buffer)
+		public void CreateAudioID()
 		{
+			var data = Analis(m_buffer, 1 << 14);
+			var mels = MelFiltering(data, 20);
+		}
 
+		public Double[] Analis(byte[] buffer, int frameSize)
+		{
+			var lenght = buffer.Length / 2;
+			var fftBuffer = new AForge.Math.Complex[lenght];
+			for (int i = 0; i < buffer.Length / 2; i++)
+				fftBuffer[i].Re = (Double)BitConverter.ToInt16(buffer, i * 2) / Int16.MaxValue;
+
+			var offset = 0;
+			var windowWidth = frameSize;
+			var result = new Double[windowWidth/2];
+			var localBuffer = new AForge.Math.Complex[windowWidth];
+			while (offset + windowWidth < lenght)
+			{
+				for (int i = 0; i < windowWidth; i++)
+					localBuffer[i].Re = fftBuffer[i + offset].Re*(0.54 - 0.46*Math.Cos(2*Math.PI*i/windowWidth));
+				AForge.Math.FourierTransform.FFT(localBuffer, AForge.Math.FourierTransform.Direction.Forward);
+				for (int i = 0; i < windowWidth/2; i++)
+					result[i] += localBuffer[i].Magnitude;
+				offset += windowWidth/2;
+			}
+			for (int i = 0; i < windowWidth / 2; i++)
+				result[i] /= windowWidth;
+			var norm = 1 / result.Max();
+			for (int i = 0; i < result.Length; i++)
+				result[i] *= norm;
+			return result;
+		}
+
+		public Double[] MelFiltering(Double[] spectr, int numberFilters)
+		{
+			var adding = 200 * 1024 / 16000;
+			var result = new Double[numberFilters];
+			var indexes = new Int32[numberFilters];
+			var Base = Math.Exp(Math.Log(spectr.Length) / (numberFilters + adding));
+
+			for (int i = 0; i < numberFilters; i++)
+			{
+				indexes[i] = (int)Math.Pow(Base, i+adding);
+			}
+
+			var index = 1; 
+			for (int i = indexes[0]; i < spectr.Length; i++)
+			{
+				if (index > indexes.Length - 1)
+					break;
+				result[index] += spectr[i] * (i - indexes[index - 1]) / (indexes[index] - indexes[index - 1]);
+				result[index-1] += spectr[i] * (indexes[index] - i) / (indexes[index] - indexes[index - 1]);
+				if (i > indexes[index]) index++;
+			}
+			var norm = 1/result.Max();
+			for (int i = 0; i < result.Length; i++)
+				result[i] *= norm;  
+			return result;
 		}
 
 		private void waveIn_RecordingStopped(object sender, EventArgs e)
 		{
- 			
+			CreateAudioID();
 		}
 
 		private void waveIn_DataAvailable(object sender, WaveInEventArgs e)
 		{
- 			m_buffer.Concat(e.Buffer);
-			Visualization(e.Buffer);
+			var offset = m_buffer.Length;
+			tmpBuffer = e.Buffer;
+			Array.Resize(ref m_buffer, m_buffer.Length + e.Buffer.Length);
+			for (int index = 0; index < e.Buffer.Length; index++)
+				m_buffer[index+offset] = e.Buffer[index];
+		}
+		
+		internal Bitmap Visulization(System.Drawing.Size size)
+		{
+			var result = new Bitmap(size.Width, size.Height);
+			var canvas = Graphics.FromImage(result);
+			canvas.FillRectangle(new SolidBrush(Color.Black), 0, 0, size.Width, size.Height);
+			if (tmpBuffer != null)
+			{
+				var data = Analis(tmpBuffer, 1024);
+				var startIndex = 110 * 1024 / 16000;
+				var maxValue = data.Max();
+				var length = data.Length - startIndex;
+				var points = new PointF[length];
+				for (int i = 0; i < length; i++)
+				{
+					points[i].X = i * size.Width / length;
+					points[i].Y = size.Height - (float)(data[startIndex + i] * size.Height / maxValue);
+				}
+				canvas.DrawLines(new Pen(Color.White), points);
+			}
+			return result;
 		}
 	}
 
@@ -237,6 +333,6 @@ namespace VoiceAuth
 
 	internal class VoiceAnalys
 	{
-
+		
 	}
 }
