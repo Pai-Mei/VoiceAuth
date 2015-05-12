@@ -13,8 +13,11 @@ namespace VoiceAuth
 	public partial class fmRecordForm : Form
 	{
 		private AudioRecorder m_Rec;
-		private TimeSpan m_EllapsedTime;
-		private TimeSpan m_RecTime;
+		private bool m_StartRec = false;
+
+		public String Login { get; set; }
+
+		public Double[] Mels { get; private set; }
 
 		public fmRecordForm()
 		{
@@ -25,27 +28,27 @@ namespace VoiceAuth
 
 		private void timer1_Tick(object sender, EventArgs e)
 		{
-			m_EllapsedTime += new TimeSpan(0, 0, 0, 0, timer1.Interval);
-			if (m_EllapsedTime > m_RecTime)
-			{
-				timer1.Stop();
-				m_Rec.StopRecord();
-			}
-			else
-			{
-				progressBar1.Value = (int)m_EllapsedTime.TotalMilliseconds;
-				pictureBox1.Image = m_Rec.Visulization(pictureBox1.Size);
-			}
+			pictureBox1.Image = m_Rec.Visulization(pictureBox1.Size);
 		}
 
 		private void button1_Click(object sender, EventArgs e)
 		{
-			m_Rec.StartRecord();
-			m_EllapsedTime = new TimeSpan();
-			m_RecTime = new TimeSpan(0, 0, (int)VoiceAuth.AudioSettings.Duration);
-			progressBar1.Maximum = (int)m_RecTime.TotalMilliseconds;
-			timer1.Start();
-			button1.Enabled = false;
+			if (!m_StartRec)
+			{
+				m_Rec.StartRecord();
+				timer1.Start();
+				button1.Text = "Остановить";
+			}
+			else
+			{
+				timer1.Stop();
+				m_Rec.StopRecord();
+				button1.Text = "Запись";
+				Mels = m_Rec.GetMels();
+				pictureBox1.Image.Save(Environment.CurrentDirectory + "\\" + Login + ".img");
+				this.Close();
+			}
+			m_StartRec = !m_StartRec;
 		}
 	}
 }

@@ -59,6 +59,7 @@
 			// 
 			this.maskedTextBoxPassword.Location = new System.Drawing.Point(66, 32);
 			this.maskedTextBoxPassword.Name = "maskedTextBoxPassword";
+			this.maskedTextBoxPassword.PasswordChar = '*';
 			this.maskedTextBoxPassword.Size = new System.Drawing.Size(178, 20);
 			this.maskedTextBoxPassword.TabIndex = 3;
 			// 

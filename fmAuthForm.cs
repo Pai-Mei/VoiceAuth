@@ -19,7 +19,13 @@ namespace VoiceAuth
 
 		private void btnVoice_Click(object sender, EventArgs e)
 		{
+			if (comboBoxLogin.Text == "")
+			{
+				MessageBox.Show("Введите логин!","Ошибка!",MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				return;
+			}
 			var dialog = new fmRecordForm();
+			dialog.Login = comboBoxLogin.Text;
 			this.DialogResult = dialog.ShowDialog();
 		}
 

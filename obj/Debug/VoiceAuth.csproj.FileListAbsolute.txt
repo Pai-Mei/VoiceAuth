@@ -24,3 +24,7 @@ C:\Users\Stanislav\Documents\Visual Studio 2013\Projects\AudioAuth\VoiceAuth\bin
 C:\Users\Stanislav\Documents\Visual Studio 2013\Projects\AudioAuth\VoiceAuth\bin\Debug\AForge.dll
 C:\Users\Stanislav\Documents\Visual Studio 2013\Projects\AudioAuth\VoiceAuth\bin\Debug\AForge.Math.dll
 C:\Users\Stanislav\Documents\Visual Studio 2013\Projects\AudioAuth\VoiceAuth\bin\Debug\AForge.Neuro.dll
+C:\Users\Станислав\Documents\GitHub\VoiceAuth\bin\Debug\AForge.Controls.dll
+C:\Users\Станислав\Documents\GitHub\VoiceAuth\bin\Debug\AForge.dll
+C:\Users\Станислав\Documents\GitHub\VoiceAuth\bin\Debug\AForge.Math.dll
+C:\Users\Станислав\Documents\GitHub\VoiceAuth\bin\Debug\AForge.Neuro.dll

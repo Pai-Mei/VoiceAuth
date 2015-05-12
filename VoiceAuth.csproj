@@ -62,6 +62,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authentification.cs" />
+    <Compile Include="AudioRecorder.cs" />
+    <Compile Include="BinSerializer.cs" />
+    <Compile Include="VoiceAnalys.cs" />
     <Compile Include="fmAdminSettings.cs">
       <SubType>Form</SubType>
     </Compile>
