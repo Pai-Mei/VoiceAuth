@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,9 +25,22 @@ namespace VoiceAuth
 				MessageBox.Show("Введите логин!","Ошибка!",MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				return;
 			}
+			var filePAth = Environment.CurrentDirectory + "\\" + comboBoxLogin.Text + ".nnd";
+			if(!File.Exists(filePAth))
+			{
+				MessageBox.Show("Отсутствуют голосовые данные!","Ошибка!",MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				return;
+			}
 			var dialog = new fmRecordForm();
 			dialog.Login = comboBoxLogin.Text;
-			this.DialogResult = dialog.ShowDialog();
+			dialog.ShowDialog();
+			var VA = new VoiceAnalys();
+			VA.LoadNetwork(filePAth);
+			var result = VA.Validate(dialog.Mels);
+			if (result > 0.8)
+				this.DialogResult = System.Windows.Forms.DialogResult.OK;
+			else
+				this.DialogResult = System.Windows.Forms.DialogResult.No;		
 		}
 
 		private void btnOK_Click(object sender, EventArgs e)

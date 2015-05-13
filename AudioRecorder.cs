@@ -55,6 +55,8 @@ namespace VoiceAuth
 
 	internal class AudioRecorder
 	{
+		private const int freq = 16000;
+
 		private byte[] m_buffer;
 		private byte[] tmpBuffer;
 		private WaveIn m_Input;
@@ -97,7 +99,7 @@ namespace VoiceAuth
 		private Double[] GetMels(byte[] buffer, int frameSize, int melsNumbers)
 		{
 			var data = Analis(buffer, frameSize);
-			var mels = MelFiltering(data, melsNumbers);
+			var mels = MelFiltering(data, melsNumbers, frameSize);
 			return mels;
 		}
 
@@ -110,28 +112,30 @@ namespace VoiceAuth
 
 			var offset = 0;
 			var windowWidth = frameSize;
-			var result = new Double[windowWidth / 2];
+			
 			var localBuffer = new AForge.Math.Complex[windowWidth];
+			var lpf = 300 * windowWidth / freq;
+			var hpf = 3400 * windowWidth / freq;
+			var width = windowWidth / 2;// -lpf - hpf;
+			var result = new Double[width];
 			while (offset + windowWidth < lenght)
 			{
 				for (int i = 0; i < windowWidth; i++)
-					localBuffer[i].Re = fftBuffer[i + offset].Re * (0.54 - 0.46 * Math.Cos(2 * Math.PI * i / windowWidth));
+					localBuffer[i].Re = fftBuffer[i + offset].Re *(0.54 - 0.46 * Math.Cos(2 * Math.PI * i / windowWidth));
 				AForge.Math.FourierTransform.FFT(localBuffer, AForge.Math.FourierTransform.Direction.Forward);
-				for (int i = 0; i < windowWidth / 2; i++)
-					result[i] += localBuffer[i].Magnitude;
+				for (int i = 0; i < width; i++)
+					result[i] += localBuffer[i].Magnitude / windowWidth;
 				offset += windowWidth / 2;
-			}
-			for (int i = 0; i < windowWidth / 2; i++)
-				result[i] /= windowWidth;
+			}			
 			var norm = 1 / result.Max();
 			for (int i = 0; i < result.Length; i++)
 				result[i] *= norm;
 			return result;
 		}
 
-		private Double[] MelFiltering(Double[] spectr, int numberFilters)
+		private Double[] MelFiltering(Double[] spectr, int numberFilters, int frameSize)
 		{
-			var adding = 200 * 1024 / 16000;
+			var adding = 300 * frameSize / 16000;
 			var result = new Double[numberFilters];
 			var indexes = new Int32[numberFilters];
 			var Base = Math.Exp(Math.Log(spectr.Length) / (numberFilters + adding));
@@ -146,13 +150,15 @@ namespace VoiceAuth
 			{
 				if (index > indexes.Length - 1)
 					break;
+				if (indexes[index] - indexes[index - 1] == 0)
+					continue;
 				result[index] += spectr[i] * (i - indexes[index - 1]) / (indexes[index] - indexes[index - 1]);
 				result[index - 1] += spectr[i] * (indexes[index] - i) / (indexes[index] - indexes[index - 1]);
 				if (i > indexes[index]) index++;
 			}
-			var norm = 1 / result.Max();
-			for (int i = 0; i < result.Length; i++)
-				result[i] *= norm;
+			//var norm = 1 / result.Max();
+			//for (int i = 0; i < result.Length; i++)
+			//	result[i] *= norm;
 			return result;
 		}
 
@@ -177,14 +183,18 @@ namespace VoiceAuth
 			canvas.FillRectangle(new SolidBrush(Color.Black), 0, 0, size.Width, size.Height);
 			if (tmpBuffer != null)
 			{
-				var data = Analis(tmpBuffer, 1024);
-				var startIndex = 110 * 1024 / 16000;
+				var data = Analis(tmpBuffer, 4096);
+				var f500Index = 500 * 4096 / freq;
+				var f1kIndex = 1000 * 4096 / freq;
+				var f2kIndex = 2000 * 4096 / freq;
+				var f4kIndex = 4000 * 4096 / freq;
+				var startIndex = 0;
 				var maxValue = data.Max();
 				var length = data.Length - startIndex;
 				var points = new PointF[length];
-				for (int i = 0; i < length; i++)
+				for (int i = 1; i < length; i++)
 				{
-					points[i].X = i * size.Width / length;
+					points[i].X = (int)(Math.Log10(i) * size.Width / Math.Log10(length));
 					points[i].Y = size.Height - (float)(data[startIndex + i] * size.Height / maxValue);
 				}
 				canvas.DrawLines(new Pen(Color.White), points);

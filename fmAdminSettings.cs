@@ -125,15 +125,19 @@ namespace VoiceAuth
 				SaveAudioSettings();
 				var numberRecords = (Int32)numericRecords.Value;
 				var mels = new List<Double[]>();
+				var login = (string)listBox1.Items[listBox1.SelectedIndex];
+				var error = Convert.ToDouble(numericUpDownError.Value);
+				var maxCount = Convert.ToInt32(numericMaxCount.Value);
 				for (int i = 0; i < numberRecords; i++)
 				{
 					fmRecordForm rec = new fmRecordForm();
-					rec.Login = (string)listBox1.Items[listBox1.SelectedIndex];
+					rec.Login = login;
 					rec.ShowDialog();
 					mels.Add(rec.Mels);
 				}
 				var analiser = new VoiceAnalys();
-				
+				analiser.CreateNN(mels.Count, error, maxCount, mels);
+				analiser.SaveNetwork(Environment.CurrentDirectory + "\\" + login + ".nnd");
 			}
 		}
 
@@ -144,7 +148,9 @@ namespace VoiceAuth
 
 		private void fmAdminSettings_FormClosing(object sender, FormClosingEventArgs e)
 		{
+			VoiceAuth.AuthClient.Save();
 			SaveAudioSettings();
+			Application.Exit();
 		}
 
 		private void listBox1_SelectedIndexChanged(object sender, EventArgs e)

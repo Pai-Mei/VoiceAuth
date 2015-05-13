@@ -37,8 +37,8 @@ namespace VoiceAuth
 
 		static public Boolean Login()
 		{
-			
 			try {
+				m_AudioSettings = Settings.Load();
 				AuthClient = new Authentification();
 				var fmAuth = new fmAuthForm();
 				var result = fmAuth.ShowDialog();

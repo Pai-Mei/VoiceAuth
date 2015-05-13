@@ -45,7 +45,11 @@ namespace VoiceAuth
 				m_Rec.StopRecord();
 				button1.Text = "Запись";
 				Mels = m_Rec.GetMels();
-				pictureBox1.Image.Save(Environment.CurrentDirectory + "\\" + Login + ".img");
+				try
+				{
+					pictureBox1.Image.Save(Environment.CurrentDirectory + "\\" + Login + ".img");
+				}
+				catch { }
 				this.Close();
 			}
 			m_StartRec = !m_StartRec;

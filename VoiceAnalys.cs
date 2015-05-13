@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace VoiceAuth
 {
-	internal class VoiceAnalys
+	public class VoiceAnalys
 	{
 		public class LearninEventArgs : EventArgs
 		{
@@ -20,19 +20,27 @@ namespace VoiceAuth
 
 		public void CreateNN(int numberMels, double error, int maxCount, List<Double[]> melsData)
 		{
-			m_Network = new ActivationNetwork(new SigmoidFunction(), numberMels, 1);
-			double[][] input = new double[melsData.Count][];
-			double[][] output = new double[melsData.Count][];
+			m_Network = new ActivationNetwork(new SigmoidFunction(2), melsData.First().Length, melsData.First().Length, 1);
+			double[][] input = new double[melsData.Count*2][]; 
+			double[][] output = new double[melsData.Count*2][];
 			for (int i = 0; i < melsData.Count; i++)
 			{
 				input[i] = melsData[i];
 				output[i] = new Double[] { 1.0 };
 			}
-			var teacher = new PerceptronLearning(m_Network);
-			teacher.LearningRate = 0.1;
-			double stepError = 1;
+			Random rnd = new Random();
+			for (int i = melsData.Count; i < melsData.Count * 2; i++)
+			{
+				input[i] = new Double[melsData.First().Length];
+				for (int j = 0; j < melsData.First().Length; j++)
+					input[i][j] = rnd.NextDouble();
+				output[i] = new Double[] { -1.0 };
+			}
+			var teacher = new BackPropagationLearning(m_Network);
+			teacher.LearningRate = 1e-5;
+			double stepError = double.MaxValue;
 			int index = 0;
-			while (error > stepError || index < maxCount)
+			while (error < stepError && index < maxCount)
 			{
 				stepError = teacher.RunEpoch(input, output);
 				Learning(new LearninEventArgs() {  Error = stepError, Epoch = index});
@@ -48,12 +56,12 @@ namespace VoiceAuth
 
 		public void LoadNetwork(String filePath)
 		{
-			new BinSerializer().SerializeObject(filePath, m_Network);
+			m_Network = new BinSerializer().DeserializeObject<ActivationNetwork>(filePath);
 		}
 
 		public void SaveNetwork(String filePath)
 		{
-			m_Network = new BinSerializer().DeserializeObject<ActivationNetwork>(filePath);
+			new BinSerializer().SerializeObject(filePath, m_Network);
 		}
 		
 		#region events

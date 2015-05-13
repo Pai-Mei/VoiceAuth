@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace VoiceAuth
 {
-	internal class Authentification : IDisposable
+	public class Authentification : IDisposable
 	{
 		private const string filePath = "\\auth.xml";
 
