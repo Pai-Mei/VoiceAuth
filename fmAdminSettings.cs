@@ -136,7 +136,7 @@ namespace VoiceAuth
 					mels.Add(rec.Mels);
 				}
 				var analiser = new VoiceAnalys();
-				analiser.CreateNN(mels.Count, error, maxCount, mels);
+				analiser.CreateNN(error, maxCount, mels);
 				analiser.SaveNetwork(Environment.CurrentDirectory + "\\" + login + ".nnd");
 			}
 		}

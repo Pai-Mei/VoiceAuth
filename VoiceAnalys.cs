@@ -18,9 +18,9 @@ namespace VoiceAuth
 
 		private ActivationNetwork m_Network;
 
-		public void CreateNN(int numberMels, double error, int maxCount, List<Double[]> melsData)
+		public void CreateNN(double error, int maxCount, List<Double[]> melsData)
 		{
-			m_Network = new ActivationNetwork(new SigmoidFunction(2), melsData.First().Length, melsData.First().Length, 1);
+			m_Network = new ActivationNetwork(new SigmoidFunction(2), melsData.First().Length, melsData.First().Length, melsData.First().Length, 1);
 			double[][] input = new double[melsData.Count*2][]; 
 			double[][] output = new double[melsData.Count*2][];
 			for (int i = 0; i < melsData.Count; i++)
@@ -37,7 +37,7 @@ namespace VoiceAuth
 				output[i] = new Double[] { -1.0 };
 			}
 			var teacher = new BackPropagationLearning(m_Network);
-			teacher.LearningRate = 1e-5;
+			teacher.LearningRate = 1;
 			double stepError = double.MaxValue;
 			int index = 0;
 			while (error < stepError && index < maxCount)
