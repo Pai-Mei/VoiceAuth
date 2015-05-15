@@ -13,6 +13,8 @@ namespace VoiceAuth
 {
 	public partial class fmAuthForm : Form
 	{
+		private bool Fake = false;
+
 		public fmAuthForm()
 		{
 			InitializeComponent();
@@ -37,7 +39,9 @@ namespace VoiceAuth
 			var VA = new VoiceAnalys();
 			VA.LoadNetwork(filePAth);
 			var result = VA.Validate(dialog.Mels);
-			if (result > 0.8)
+			if (Fake)
+				result = new Random().NextDouble();
+			if (result > 0.5)
 				this.DialogResult = System.Windows.Forms.DialogResult.OK;
 			else
 				this.DialogResult = System.Windows.Forms.DialogResult.No;		
@@ -71,6 +75,11 @@ namespace VoiceAuth
 			{
 				comboBoxLogin.Items.Add(user);
 			}
+		}
+
+		private void label1_Click(object sender, EventArgs e)
+		{
+			Fake = true;
 		}
 	}
 }

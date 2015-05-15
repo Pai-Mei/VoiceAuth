@@ -135,7 +135,7 @@ namespace VoiceAuth
 
 		private Double[] MelFiltering(Double[] spectr, int numberFilters, int frameSize)
 		{
-			var adding = 300 * frameSize / 16000;
+			var adding = 300 * frameSize * 2 / 16000;
 			var result = new Double[numberFilters];
 			var indexes = new Int32[numberFilters];
 			var Base = Math.Exp(Math.Log(spectr.Length) / (numberFilters + adding));
