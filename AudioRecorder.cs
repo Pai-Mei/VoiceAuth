@@ -133,16 +133,25 @@ namespace VoiceAuth
 			return result;
 		}
 
+		private Double ToMel(Double Hz)
+		{
+			return 1127 * Math.Log(1 + Hz/700);
+		}
+
 		private Double[] MelFiltering(Double[] spectr, int numberFilters, int frameSize)
 		{
-			var adding = 300 * frameSize * 2 / 16000;
-			var result = new Double[numberFilters];
-			var indexes = new Int32[numberFilters];
-			var Base = Math.Exp(Math.Log(spectr.Length) / (numberFilters + adding));
-
-			for (int i = 0; i < numberFilters; i++)
+			var maxF = freq/2;
+			var MelLenght = (int)ToMel(maxF);
+			var result = new Double[MelLenght];
+			var indexes = new Int32[MelLenght];
+			var counter = 0;
+			for (int i = 0; i < spectr.Length; i++)
 			{
-				indexes[i] = (int)Math.Pow(Base, i + adding);
+				if (counter < MelLenght)
+				{
+					var mel = (int)ToMel(i *freq / frameSize);
+					indexes[counter++] = mel;
+				}
 			}
 
 			var index = 1;
