@@ -107,16 +107,24 @@ namespace VoiceAuth
 		{
 			var lenght = buffer.Length / 2;
 			var fftBuffer = new AForge.Math.Complex[lenght];
+			var maxValue = Double.MinValue;
 			for (int i = 0; i < buffer.Length / 2; i++)
+			{
 				fftBuffer[i].Re = (Double)BitConverter.ToInt16(buffer, i * 2) / Int16.MaxValue;
+				if (fftBuffer[i].Re > maxValue)
+					maxValue = fftBuffer[i].Re;
+			}
+
+			for (int i = 0; i < fftBuffer.Length; i++)
+				fftBuffer[i].Re /= maxValue;
+
+
 
 			var offset = 0;
 			var windowWidth = frameSize;
 			
 			var localBuffer = new AForge.Math.Complex[windowWidth];
-			var lpf = 300 * windowWidth / freq;
-			var hpf = 3400 * windowWidth / freq;
-			var width = windowWidth / 2;// -lpf - hpf;
+			var width = windowWidth / 2;
 			var result = new Double[width];
 			while (offset + windowWidth < lenght)
 			{
@@ -127,9 +135,9 @@ namespace VoiceAuth
 					result[i] += localBuffer[i].Magnitude / windowWidth;
 				offset += windowWidth / 2;
 			}			
-			var norm = 1 / result.Max();
-			for (int i = 0; i < result.Length; i++)
-				result[i] *= norm;
+			//var norm = 1 / result.Max();
+			//for (int i = 0; i < result.Length; i++)
+			//	result[i] *= norm;
 			return result;
 		}
 
@@ -137,38 +145,54 @@ namespace VoiceAuth
 		{
 			return 1127 * Math.Log(1 + Hz/700);
 		}
+		private Double ToHz(Double Mel)
+		{
+			return 700 * (Math.Exp(Mel / 1125) - 1);
+		}
 
 		private Double[] MelFiltering(Double[] spectr, int numberFilters, int frameSize)
 		{
-			var maxF = freq/2;
-			var MelLenght = (int)ToMel(maxF);
-			var result = new Double[MelLenght];
-			var indexes = new Int32[MelLenght];
+
+			var result = new Double[numberFilters];
+			var indexes = new Int32[numberFilters];
+			
+			var stepMel = ToMel(spectr.Length) / (numberFilters+1);
+			var curMel = stepMel;
 			var counter = 0;
-			for (int i = 0; i < spectr.Length; i++)
+			for (int i = 0; i < numberFilters; i++)
 			{
-				if (counter < MelLenght)
-				{
-					var mel = (int)ToMel(i *freq / frameSize);
-					indexes[counter++] = mel;
-				}
+				indexes[counter++] = (int)ToHz(curMel);
+				curMel += stepMel;
 			}
 
 			var index = 1;
-			for (int i = indexes[0]; i < spectr.Length; i++)
+
+			for (int i = 0; i < indexes.Length; i++)
 			{
-				if (index > indexes.Length - 1)
-					break;
-				if (indexes[index] - indexes[index - 1] == 0)
-					continue;
-				result[index] += spectr[i] * (i - indexes[index - 1]) / (indexes[index] - indexes[index - 1]);
-				result[index - 1] += spectr[i] * (indexes[index] - i) / (indexes[index] - indexes[index - 1]);
-				if (i > indexes[index]) index++;
+				result[i] = 0;
+				var startIndex = i > 0 ? indexes[i-1] : 0;
+				var endIndex = i < indexes.Length - 1 ? indexes[i+1] : spectr.Length - 1;
+				for (int j = startIndex; j < indexes[i]; j++)
+				{
+					result[i] += spectr[j] * spectr[j] * (j - startIndex) / (indexes[i] - startIndex);
+				}
+				for (int j = indexes[i]; j < endIndex; j++)
+				{
+					result[i] += spectr[j] * spectr[j] * (endIndex - j) / (endIndex - indexes[i]);
+				}
+ 				result[i] = Math.Log(result[i]);
 			}
-			//var norm = 1 / result.Max();
-			//for (int i = 0; i < result.Length; i++)
-			//	result[i] *= norm;
-			return result;
+			var M = result.Length;
+			var C = new Double[M];
+			for (int i = 0; i < M; i++)
+			{
+				for (int j = 0; j < M; j++)
+				{
+					C[i] += result[j] * Math.Cos(Math.PI * i * (j + 0.5) / M);
+				}
+			}
+			
+			return C;
 		}
 
 		private void waveIn_RecordingStopped(object sender, EventArgs e)
@@ -209,11 +233,6 @@ namespace VoiceAuth
 				canvas.DrawLines(new Pen(Color.White), points);
 			}
 			return result;
-		}
-
-		internal bool Auth(string Login)
-		{
-			throw new NotImplementedException();
 		}
 	}
 }

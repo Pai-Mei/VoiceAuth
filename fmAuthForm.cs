@@ -27,7 +27,7 @@ namespace VoiceAuth
 				MessageBox.Show("Введите логин!","Ошибка!",MessageBoxButtons.OK, MessageBoxIcon.Warning);
 				return;
 			}
-			var filePAth = Environment.CurrentDirectory + "\\" + comboBoxLogin.Text + ".nnd";
+			var filePAth = Environment.CurrentDirectory + "\\" + comboBoxLogin.Text + ".lvd";
 			if(!File.Exists(filePAth))
 			{
 				MessageBox.Show("Отсутствуют голосовые данные!","Ошибка!",MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -36,12 +36,9 @@ namespace VoiceAuth
 			var dialog = new fmRecordForm();
 			dialog.Login = comboBoxLogin.Text;
 			dialog.ShowDialog();
-			var VA = new VoiceAnalys();
-			VA.LoadNetwork(filePAth);
-			var result = VA.Validate(dialog.Mels);
-			if (Fake)
-				result = new Random().NextDouble();
-			if (result > 0.5)
+			var V = Validator.Load(filePAth);
+			var result = V.Validate(dialog.Mels.ToList());
+			if (result < 100)
 				this.DialogResult = System.Windows.Forms.DialogResult.OK;
 			else
 				this.DialogResult = System.Windows.Forms.DialogResult.No;		

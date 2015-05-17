@@ -17,7 +17,7 @@ namespace VoiceAuth
 		}
 
 		private ActivationNetwork m_Network;
-
+		
 		public void CreateNN(double error, int maxCount, List<Double[]> melsData)
 		{
 			m_Network = new ActivationNetwork(new SigmoidFunction(2), melsData.First().Length, melsData.First().Length, melsData.First().Length, 1);

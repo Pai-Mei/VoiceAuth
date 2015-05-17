@@ -128,16 +128,18 @@ namespace VoiceAuth
 				var login = (string)listBox1.Items[listBox1.SelectedIndex];
 				var error = Convert.ToDouble(numericUpDownError.Value);
 				var maxCount = Convert.ToInt32(numericMaxCount.Value);
+				var Valid = new Validator();
 				for (int i = 0; i < numberRecords; i++)
 				{
 					fmRecordForm rec = new fmRecordForm();
 					rec.Login = login;
 					rec.ShowDialog();
-					mels.Add(rec.Mels);
+					Valid.AddMel(rec.Mels.ToList());
 				}
-				var analiser = new VoiceAnalys();
-				analiser.CreateNN(error, maxCount, mels);
-				analiser.SaveNetwork(Environment.CurrentDirectory + "\\" + login + ".nnd");
+				Valid.Save(Environment.CurrentDirectory + "\\" + login + ".lvd");
+				//var analiser = new VoiceAnalys();
+				//analiser.CreateNN(error, maxCount, mels);
+				//analiser.SaveNetwork(Environment.CurrentDirectory + "\\" + login + ".nnd");
 			}
 		}
 

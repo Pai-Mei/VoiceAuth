@@ -28,3 +28,4 @@ C:\Users\Станислав\Documents\GitHub\VoiceAuth\bin\Debug\AForge.Controls
 C:\Users\Станислав\Documents\GitHub\VoiceAuth\bin\Debug\AForge.dll
 C:\Users\Станислав\Documents\GitHub\VoiceAuth\bin\Debug\AForge.Math.dll
 C:\Users\Станислав\Documents\GitHub\VoiceAuth\bin\Debug\AForge.Neuro.dll
+C:\Users\Stanislav\Documents\Visual Studio 2013\Projects\AudioAuth\VoiceAuth\obj\Debug\VoiceAuth.Properties.Resources.resources

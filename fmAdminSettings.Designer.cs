@@ -36,35 +36,35 @@
 			this.btnRemove = new System.Windows.Forms.ToolStripButton();
 			this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+			this.label7 = new System.Windows.Forms.Label();
+			this.label6 = new System.Windows.Forms.Label();
+			this.numericMaxCount = new System.Windows.Forms.NumericUpDown();
+			this.numericUpDownError = new System.Windows.Forms.NumericUpDown();
+			this.label5 = new System.Windows.Forms.Label();
+			this.numericUpDownBufferSize = new System.Windows.Forms.NumericUpDown();
+			this.numericMels = new System.Windows.Forms.NumericUpDown();
+			this.label4 = new System.Windows.Forms.Label();
+			this.comboBoxFrameSize = new System.Windows.Forms.ComboBox();
+			this.label3 = new System.Windows.Forms.Label();
+			this.numericRecords = new System.Windows.Forms.NumericUpDown();
+			this.label2 = new System.Windows.Forms.Label();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.pictureBoxSpectr = new System.Windows.Forms.PictureBox();
 			this.comboBoxDevice = new System.Windows.Forms.ComboBox();
 			this.label1 = new System.Windows.Forms.Label();
-			this.label2 = new System.Windows.Forms.Label();
-			this.numericRecords = new System.Windows.Forms.NumericUpDown();
-			this.label3 = new System.Windows.Forms.Label();
-			this.comboBoxFrameSize = new System.Windows.Forms.ComboBox();
-			this.label4 = new System.Windows.Forms.Label();
-			this.numericMels = new System.Windows.Forms.NumericUpDown();
-			this.numericUpDownBufferSize = new System.Windows.Forms.NumericUpDown();
-			this.label5 = new System.Windows.Forms.Label();
-			this.numericUpDownError = new System.Windows.Forms.NumericUpDown();
-			this.numericMaxCount = new System.Windows.Forms.NumericUpDown();
-			this.label6 = new System.Windows.Forms.Label();
-			this.label7 = new System.Windows.Forms.Label();
 			this.groupBox1.SuspendLayout();
 			this.toolStrip1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
 			this.splitContainer1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numericMaxCount)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownError)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownBufferSize)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericMels)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericRecords)).BeginInit();
 			this.groupBox2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBoxSpectr)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericRecords)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericMels)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDownBufferSize)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDownError)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericMaxCount)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// groupBox1
@@ -165,6 +165,214 @@
 			this.splitContainer1.SplitterDistance = 274;
 			this.splitContainer1.TabIndex = 2;
 			// 
+			// label7
+			// 
+			this.label7.AutoSize = true;
+			this.label7.Location = new System.Drawing.Point(5, 167);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(143, 13);
+			this.label7.TabIndex = 18;
+			this.label7.Text = "Макс. кол-во циклов обуч.:";
+			// 
+			// label6
+			// 
+			this.label6.AutoSize = true;
+			this.label6.Location = new System.Drawing.Point(5, 141);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(99, 13);
+			this.label6.TabIndex = 17;
+			this.label6.Text = "Ошибка обучения:";
+			// 
+			// numericMaxCount
+			// 
+			this.numericMaxCount.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.numericMaxCount.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+			this.numericMaxCount.Location = new System.Drawing.Point(149, 165);
+			this.numericMaxCount.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+			this.numericMaxCount.Minimum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+			this.numericMaxCount.Name = "numericMaxCount";
+			this.numericMaxCount.Size = new System.Drawing.Size(271, 20);
+			this.numericMaxCount.TabIndex = 16;
+			this.numericMaxCount.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+			// 
+			// numericUpDownError
+			// 
+			this.numericUpDownError.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.numericUpDownError.DecimalPlaces = 2;
+			this.numericUpDownError.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+			this.numericUpDownError.Location = new System.Drawing.Point(149, 139);
+			this.numericUpDownError.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numericUpDownError.Name = "numericUpDownError";
+			this.numericUpDownError.Size = new System.Drawing.Size(271, 20);
+			this.numericUpDownError.TabIndex = 15;
+			this.numericUpDownError.UseWaitCursor = true;
+			this.numericUpDownError.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+			// 
+			// label5
+			// 
+			this.label5.AutoSize = true;
+			this.label5.Location = new System.Drawing.Point(5, 34);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(138, 13);
+			this.label5.TabIndex = 14;
+			this.label5.Text = "Размер аудиобуфера(мс):";
+			// 
+			// numericUpDownBufferSize
+			// 
+			this.numericUpDownBufferSize.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.numericUpDownBufferSize.Increment = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+			this.numericUpDownBufferSize.Location = new System.Drawing.Point(150, 32);
+			this.numericUpDownBufferSize.Maximum = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+			this.numericUpDownBufferSize.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+			this.numericUpDownBufferSize.Name = "numericUpDownBufferSize";
+			this.numericUpDownBufferSize.Size = new System.Drawing.Size(270, 20);
+			this.numericUpDownBufferSize.TabIndex = 13;
+			this.numericUpDownBufferSize.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+			// 
+			// numericMels
+			// 
+			this.numericMels.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.numericMels.Increment = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+			this.numericMels.Location = new System.Drawing.Point(149, 113);
+			this.numericMels.Minimum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+			this.numericMels.Name = "numericMels";
+			this.numericMels.Size = new System.Drawing.Size(271, 20);
+			this.numericMels.TabIndex = 12;
+			this.numericMels.Value = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.Location = new System.Drawing.Point(5, 115);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(121, 13);
+			this.label4.TabIndex = 11;
+			this.label4.Text = "Кол-во MEL-фильтров:";
+			this.label4.Click += new System.EventHandler(this.label4_Click);
+			// 
+			// comboBoxFrameSize
+			// 
+			this.comboBoxFrameSize.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.comboBoxFrameSize.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.comboBoxFrameSize.FormattingEnabled = true;
+			this.comboBoxFrameSize.Items.AddRange(new object[] {
+            "256",
+            "512",
+            "1024",
+            "2048",
+            "4096",
+            "8192",
+            "16384",
+            "32765",
+            ""});
+			this.comboBoxFrameSize.Location = new System.Drawing.Point(149, 86);
+			this.comboBoxFrameSize.Name = "comboBoxFrameSize";
+			this.comboBoxFrameSize.Size = new System.Drawing.Size(271, 21);
+			this.comboBoxFrameSize.TabIndex = 10;
+			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(5, 89);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(92, 13);
+			this.label3.TabIndex = 9;
+			this.label3.Text = "Размер фрейма:";
+			// 
+			// numericRecords
+			// 
+			this.numericRecords.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.numericRecords.Location = new System.Drawing.Point(149, 58);
+			this.numericRecords.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+			this.numericRecords.Minimum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+			this.numericRecords.Name = "numericRecords";
+			this.numericRecords.Size = new System.Drawing.Size(271, 20);
+			this.numericRecords.TabIndex = 8;
+			this.numericRecords.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(5, 60);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(146, 13);
+			this.label2.TabIndex = 7;
+			this.label2.Text = "Кол-во эталонных записей:";
+			// 
 			// groupBox2
 			// 
 			this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -208,214 +416,6 @@
 			this.label1.TabIndex = 0;
 			this.label1.Text = "Устройство записи звука:";
 			// 
-			// label2
-			// 
-			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(5, 60);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(146, 13);
-			this.label2.TabIndex = 7;
-			this.label2.Text = "Кол-во эталонных записей:";
-			// 
-			// numericRecords
-			// 
-			this.numericRecords.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.numericRecords.Location = new System.Drawing.Point(149, 58);
-			this.numericRecords.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-			this.numericRecords.Minimum = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
-			this.numericRecords.Name = "numericRecords";
-			this.numericRecords.Size = new System.Drawing.Size(271, 20);
-			this.numericRecords.TabIndex = 8;
-			this.numericRecords.Value = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
-			// 
-			// label3
-			// 
-			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(5, 89);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(92, 13);
-			this.label3.TabIndex = 9;
-			this.label3.Text = "Размер фрейма:";
-			// 
-			// comboBoxFrameSize
-			// 
-			this.comboBoxFrameSize.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.comboBoxFrameSize.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.comboBoxFrameSize.FormattingEnabled = true;
-			this.comboBoxFrameSize.Items.AddRange(new object[] {
-            "256",
-            "512",
-            "1024",
-            "2048",
-            "4096",
-            "8192",
-            "16384",
-            "32765",
-            ""});
-			this.comboBoxFrameSize.Location = new System.Drawing.Point(149, 86);
-			this.comboBoxFrameSize.Name = "comboBoxFrameSize";
-			this.comboBoxFrameSize.Size = new System.Drawing.Size(271, 21);
-			this.comboBoxFrameSize.TabIndex = 10;
-			// 
-			// label4
-			// 
-			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(5, 115);
-			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(121, 13);
-			this.label4.TabIndex = 11;
-			this.label4.Text = "Кол-во MEL-фильтров:";
-			this.label4.Click += new System.EventHandler(this.label4_Click);
-			// 
-			// numericMels
-			// 
-			this.numericMels.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.numericMels.Increment = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-			this.numericMels.Location = new System.Drawing.Point(149, 113);
-			this.numericMels.Minimum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-			this.numericMels.Name = "numericMels";
-			this.numericMels.Size = new System.Drawing.Size(271, 20);
-			this.numericMels.TabIndex = 12;
-			this.numericMels.Value = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-			// 
-			// numericUpDownBufferSize
-			// 
-			this.numericUpDownBufferSize.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.numericUpDownBufferSize.Increment = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-			this.numericUpDownBufferSize.Location = new System.Drawing.Point(150, 32);
-			this.numericUpDownBufferSize.Maximum = new decimal(new int[] {
-            500,
-            0,
-            0,
-            0});
-			this.numericUpDownBufferSize.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-			this.numericUpDownBufferSize.Name = "numericUpDownBufferSize";
-			this.numericUpDownBufferSize.Size = new System.Drawing.Size(270, 20);
-			this.numericUpDownBufferSize.TabIndex = 13;
-			this.numericUpDownBufferSize.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-			// 
-			// label5
-			// 
-			this.label5.AutoSize = true;
-			this.label5.Location = new System.Drawing.Point(5, 34);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(138, 13);
-			this.label5.TabIndex = 14;
-			this.label5.Text = "Размер аудиобуфера(мс):";
-			// 
-			// numericUpDownError
-			// 
-			this.numericUpDownError.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.numericUpDownError.DecimalPlaces = 2;
-			this.numericUpDownError.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-			this.numericUpDownError.Location = new System.Drawing.Point(149, 139);
-			this.numericUpDownError.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-			this.numericUpDownError.Name = "numericUpDownError";
-			this.numericUpDownError.Size = new System.Drawing.Size(271, 20);
-			this.numericUpDownError.TabIndex = 15;
-			this.numericUpDownError.UseWaitCursor = true;
-			this.numericUpDownError.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-			// 
-			// numericMaxCount
-			// 
-			this.numericMaxCount.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.numericMaxCount.Increment = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-			this.numericMaxCount.Location = new System.Drawing.Point(149, 165);
-			this.numericMaxCount.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-			this.numericMaxCount.Minimum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-			this.numericMaxCount.Name = "numericMaxCount";
-			this.numericMaxCount.Size = new System.Drawing.Size(271, 20);
-			this.numericMaxCount.TabIndex = 16;
-			this.numericMaxCount.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-			// 
-			// label6
-			// 
-			this.label6.AutoSize = true;
-			this.label6.Location = new System.Drawing.Point(5, 141);
-			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(99, 13);
-			this.label6.TabIndex = 17;
-			this.label6.Text = "Ошибка обучения:";
-			// 
-			// label7
-			// 
-			this.label7.AutoSize = true;
-			this.label7.Location = new System.Drawing.Point(5, 167);
-			this.label7.Name = "label7";
-			this.label7.Size = new System.Drawing.Size(143, 13);
-			this.label7.TabIndex = 18;
-			this.label7.Text = "Макс. кол-во циклов обуч.:";
-			// 
 			// fmAdminSettings
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -436,13 +436,13 @@
 			this.splitContainer1.Panel2.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
 			this.splitContainer1.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.numericMaxCount)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownError)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDownBufferSize)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericMels)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericRecords)).EndInit();
 			this.groupBox2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.pictureBoxSpectr)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericRecords)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericMels)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDownBufferSize)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericUpDownError)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.numericMaxCount)).EndInit();
 			this.ResumeLayout(false);
 
 		}
