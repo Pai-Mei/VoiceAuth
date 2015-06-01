@@ -52,6 +52,8 @@
 			this.pictureBoxSpectr = new System.Windows.Forms.PictureBox();
 			this.comboBoxDevice = new System.Windows.Forms.ComboBox();
 			this.label1 = new System.Windows.Forms.Label();
+			this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+			this.label8 = new System.Windows.Forms.Label();
 			this.groupBox1.SuspendLayout();
 			this.toolStrip1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -65,6 +67,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.numericRecords)).BeginInit();
 			this.groupBox2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBoxSpectr)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// groupBox1
@@ -145,6 +148,8 @@
 			// 
 			// splitContainer1.Panel2
 			// 
+			this.splitContainer1.Panel2.Controls.Add(this.label8);
+			this.splitContainer1.Panel2.Controls.Add(this.numericUpDown1);
 			this.splitContainer1.Panel2.Controls.Add(this.label7);
 			this.splitContainer1.Panel2.Controls.Add(this.label6);
 			this.splitContainer1.Panel2.Controls.Add(this.numericMaxCount);
@@ -168,7 +173,7 @@
 			// label7
 			// 
 			this.label7.AutoSize = true;
-			this.label7.Location = new System.Drawing.Point(5, 167);
+			this.label7.Location = new System.Drawing.Point(5, 193);
 			this.label7.Name = "label7";
 			this.label7.Size = new System.Drawing.Size(143, 13);
 			this.label7.TabIndex = 18;
@@ -177,7 +182,7 @@
 			// label6
 			// 
 			this.label6.AutoSize = true;
-			this.label6.Location = new System.Drawing.Point(5, 141);
+			this.label6.Location = new System.Drawing.Point(5, 167);
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(99, 13);
 			this.label6.TabIndex = 17;
@@ -192,7 +197,7 @@
             0,
             0,
             0});
-			this.numericMaxCount.Location = new System.Drawing.Point(149, 165);
+			this.numericMaxCount.Location = new System.Drawing.Point(149, 191);
 			this.numericMaxCount.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -222,7 +227,7 @@
             0,
             0,
             131072});
-			this.numericUpDownError.Location = new System.Drawing.Point(149, 139);
+			this.numericUpDownError.Location = new System.Drawing.Point(149, 165);
 			this.numericUpDownError.Maximum = new decimal(new int[] {
             1,
             0,
@@ -379,9 +384,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox2.Controls.Add(this.pictureBoxSpectr);
-			this.groupBox2.Location = new System.Drawing.Point(3, 183);
+			this.groupBox2.Location = new System.Drawing.Point(3, 212);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(420, 166);
+			this.groupBox2.Size = new System.Drawing.Size(420, 137);
 			this.groupBox2.TabIndex = 6;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Спектр";
@@ -391,7 +396,7 @@
 			this.pictureBoxSpectr.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.pictureBoxSpectr.Location = new System.Drawing.Point(3, 16);
 			this.pictureBoxSpectr.Name = "pictureBoxSpectr";
-			this.pictureBoxSpectr.Size = new System.Drawing.Size(414, 147);
+			this.pictureBoxSpectr.Size = new System.Drawing.Size(414, 118);
 			this.pictureBoxSpectr.TabIndex = 0;
 			this.pictureBoxSpectr.TabStop = false;
 			// 
@@ -415,6 +420,42 @@
 			this.label1.Size = new System.Drawing.Size(141, 13);
 			this.label1.TabIndex = 0;
 			this.label1.Text = "Устройство записи звука:";
+			// 
+			// numericUpDown1
+			// 
+			this.numericUpDown1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.numericUpDown1.DecimalPlaces = 2;
+			this.numericUpDown1.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+			this.numericUpDown1.Location = new System.Drawing.Point(149, 139);
+			this.numericUpDown1.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			this.numericUpDown1.Name = "numericUpDown1";
+			this.numericUpDown1.Size = new System.Drawing.Size(271, 20);
+			this.numericUpDown1.TabIndex = 19;
+			this.numericUpDown1.UseWaitCursor = true;
+			this.numericUpDown1.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            65536});
+			// 
+			// label8
+			// 
+			this.label8.AutoSize = true;
+			this.label8.Location = new System.Drawing.Point(5, 141);
+			this.label8.Name = "label8";
+			this.label8.Size = new System.Drawing.Size(126, 13);
+			this.label8.TabIndex = 20;
+			this.label8.Text = "Точность определения:";
+			this.label8.Click += new System.EventHandler(this.label8_Click);
 			// 
 			// fmAdminSettings
 			// 
@@ -443,6 +484,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.numericRecords)).EndInit();
 			this.groupBox2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.pictureBoxSpectr)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -472,5 +514,7 @@
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.NumericUpDown numericMaxCount;
 		private System.Windows.Forms.NumericUpDown numericUpDownError;
+		private System.Windows.Forms.Label label8;
+		private System.Windows.Forms.NumericUpDown numericUpDown1;
 	}
 }

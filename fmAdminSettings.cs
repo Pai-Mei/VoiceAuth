@@ -52,6 +52,7 @@ namespace VoiceAuth
 			comboBoxFrameSize.Text = m_Settings.FrameSize.ToString();
 			numericUpDownError.Value = Convert.ToDecimal(m_Settings.LearningError);
 			numericMaxCount.Value = m_Settings.MaxLearningCount;
+			numericUpDown1.Value = Convert.ToDecimal(m_Settings.LevelValidation);
 		}
 
 		private void SaveAudioSettings()
@@ -63,6 +64,7 @@ namespace VoiceAuth
 			m_Settings.RecCount = Convert.ToInt32(numericRecords.Value);
 			m_Settings.MaxLearningCount = Convert.ToInt32(numericMaxCount.Value);
 			m_Settings.LearningError = Convert.ToDouble(numericUpDownError.Value);
+			m_Settings.LevelValidation = Convert.ToDouble(numericUpDown1.Value);
 			m_Settings.Save();
 		}
 
@@ -162,6 +164,11 @@ namespace VoiceAuth
 			if (File.Exists(filePath))
 				pictureBoxSpectr.Image = new Bitmap(filePath);
 			pictureBoxSpectr.SizeMode = PictureBoxSizeMode.StretchImage;
+		}
+
+		private void label8_Click(object sender, EventArgs e)
+		{
+
 		}
 	}
 }

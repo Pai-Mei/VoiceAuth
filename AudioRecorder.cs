@@ -20,6 +20,7 @@ namespace VoiceAuth
 		public int RecCount { get; set;}
 		public int MaxLearningCount { get; set; }
 		public Double LearningError { get; set; }
+		public Double LevelValidation { get; set; }
 		public Settings()
 		{
 			BufferMilliseconds = 100;
@@ -30,6 +31,7 @@ namespace VoiceAuth
 			RecCount = 3;
 			MaxLearningCount = 100;
 			LearningError = 0.1;
+			LevelValidation = 0.5;
 		}
 
 		public static Settings Load()

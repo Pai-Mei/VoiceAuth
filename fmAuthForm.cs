@@ -37,8 +37,9 @@ namespace VoiceAuth
 			dialog.Login = comboBoxLogin.Text;
 			dialog.ShowDialog();
 			var V = Validator.Load(filePAth);
+			Settings Settings = Settings.Load();
 			var result = V.Validate(dialog.Mels.ToList());
-			if (result < 100)
+			if (result < Settings.LevelValidation*100)
 				this.DialogResult = System.Windows.Forms.DialogResult.OK;
 			else
 				this.DialogResult = System.Windows.Forms.DialogResult.No;		
